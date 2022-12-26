@@ -5,12 +5,13 @@ import Container from "./Container";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-
+import { urlFor } from "../sanity";
 interface Props {
   categories: Category[];
+  products: Product[];
 }
 
-const Header = ({ categories }: Props) => {
+const Header = ({ categories, products }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleClick = () => {
     setIsOpen((prev) => !prev);
@@ -22,7 +23,7 @@ const Header = ({ categories }: Props) => {
         initial={{ opacity: 0, scale: 0.3 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
-        className="fixed left-0 right-0 top-0 z-[60] flex h-12 border-b border-red-400 border-opacity-40 bg-orange-50 bg-opacity-80 font-normal backdrop-blur-lg"
+        className="fixed left-0 right-0 top-0 z-[60] flex h-12 border-b border-teal-400 border-opacity-40 bg-slate-100 bg-opacity-80 font-normal backdrop-blur-lg"
       >
         <Container className="flex w-full items-center justify-between">
           <button
@@ -38,7 +39,6 @@ const Header = ({ categories }: Props) => {
           </button>
 
           <Link
-            onClick={handleClick}
             href="/"
             className="hidden font-serif text-base uppercase tracking-[0.2em] antialiased md:block"
           >
@@ -64,38 +64,34 @@ const Header = ({ categories }: Props) => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -50, opacity: 0 }}
             transition={{ ease: "easeInOut", duration: 0.4 }}
-            className="fixed w-full border-b border-red-400 border-opacity-40 bg-orange-50 bg-opacity-80 py-10 font-normal"
+            className="fixed z-50 w-full border-b border-teal-400 border-opacity-40 bg-slate-100 bg-opacity-80 py-10 font-normal"
           >
             <Container className="py-6">
-              <div className="flex w-full grid-cols-2 items-center justify-between">
+              <div className="flex w-full grid-cols-2 items-center justify-between px-8">
                 <div className="mt-6 flex flex-col space-y-3 text-gray-700">
-                  {/* <Link href="/test">COLLECTIONS</Link>
-                  <div className="text-xs">FEATURED PRODUCTS</div>
-                  <div className="text-xs">ORIGINALS</div>
-                  <div className="text-xs">LIMTED EDITIONS</div> */}
                   <Link href="/test">COLLECTIONS</Link>
                   {categories.map((category) => (
-                    <div className="uppercase text-xs">{category.title}</div>
+                    <div key={category._id} className="text-xs uppercase">
+                      {category.title}
+                    </div>
                   ))}
                 </div>
 
                 <div className="hidden space-x-4 sm:flex">
-                  {" "}
-                  <img
-                    src="/ronaldo1.jpg"
-                    className="h-40 w-40 object-cover"
-                    alt=""
-                  />
-                  <img
-                    src="/ronaldo2.jpg"
-                    className="h-40 w-40 object-cover"
-                    alt=""
-                  />
-                  <img
-                    src="/ronaldo3.jpg"
-                    className="h-40 w-40 object-cover"
-                    alt=""
-                  />
+                  {products
+                    .filter(
+                      (product) =>
+                        product.category._ref ===
+                        "925db197-d391-4a3d-9e05-6e44c54e274a"
+                    )
+                    .map((product) => (
+                      <img
+                        key={product._id}
+                        src={urlFor(product.image[0]).url()}
+                        alt=""
+                        className="h-64 w-52 border border-teal-600 object-cover p-3"
+                      />
+                    ))}
                 </div>
               </div>
             </Container>

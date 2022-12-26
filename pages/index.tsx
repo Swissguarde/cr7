@@ -1,8 +1,9 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps } from "next";
 
 import Header from "../components/Header";
 import Hero from "../components/Hero";
-
+import Prints from "../components/Prints";
+import Product from "../components/Product";
 import Seo from "../components/Seo";
 import { fetchCategories } from "../utils/fetchCatgories";
 import { fetchProducts } from "../utils/fetchProducts";
@@ -12,12 +13,12 @@ interface Props {
   products: Product[];
 }
 const Home = ({ categories, products }: Props) => {
-  console.log(products);
   return (
     <div>
       <Seo title="Home - CR7" />
-      <Header categories={categories} />
+      <Header categories={categories} products={products} />
       <Hero />
+      <Prints categories={categories} products={products} />
     </div>
   );
 };
