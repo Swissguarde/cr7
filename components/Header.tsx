@@ -6,7 +6,11 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
-const Header = () => {
+interface Props {
+  categories: Category[];
+}
+
+const Header = ({ categories }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleClick = () => {
     setIsOpen((prev) => !prev);
@@ -65,10 +69,14 @@ const Header = () => {
             <Container className="py-6">
               <div className="flex w-full grid-cols-2 items-center justify-between">
                 <div className="mt-6 flex flex-col space-y-3 text-gray-700">
-                  <Link href="/test">COLLECTIONS</Link>
+                  {/* <Link href="/test">COLLECTIONS</Link>
                   <div className="text-xs">FEATURED PRODUCTS</div>
                   <div className="text-xs">ORIGINALS</div>
-                  <div className="text-xs">LIMTED EDITIONS</div>
+                  <div className="text-xs">LIMTED EDITIONS</div> */}
+                  <Link href="/test">COLLECTIONS</Link>
+                  {categories.map((category) => (
+                    <div className="uppercase text-xs">{category.title}</div>
+                  ))}
                 </div>
 
                 <div className="hidden space-x-4 sm:flex">

@@ -7,7 +7,7 @@ const Seo = ({ title }: Props) => {
   return (
     <Head>
       <title>{title}</title>
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/cr7favico.png" />
     </Head>
   );
 };
