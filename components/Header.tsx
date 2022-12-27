@@ -23,7 +23,7 @@ const Header = ({ categories, products }: Props) => {
         initial={{ opacity: 0, scale: 0.3 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
-        className="fixed left-0 right-0 top-0 z-[60] flex h-12 border-b border-teal-400 border-opacity-40 bg-slate-100 bg-opacity-80 font-normal backdrop-blur-lg"
+        className="fixed left-0 right-0 top-0 z-[60] flex h-12 border-b border-teal-800 border-opacity-40 bg-slate-100 bg-opacity-80 font-normal backdrop-blur-lg"
       >
         <Container className="flex w-full items-center justify-between">
           <button
@@ -64,7 +64,7 @@ const Header = ({ categories, products }: Props) => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -50, opacity: 0 }}
             transition={{ ease: "easeInOut", duration: 0.4 }}
-            className="fixed z-50 w-full border-b border-teal-400 border-opacity-40 bg-slate-100 bg-opacity-80 py-10 font-normal"
+            className="fixed z-50 w-full border-b border-teal-800 border-opacity-40 bg-slate-100 bg-opacity-80 py-10 font-normal"
           >
             <Container className="py-6">
               <div className="flex w-full grid-cols-2 items-center justify-between px-8">

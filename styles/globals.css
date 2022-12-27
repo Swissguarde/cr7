@@ -6,6 +6,11 @@
 body {
   font-family: "Chivo Mono", monospace;
 }
+@layer base {
+  body {
+    @apply !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-teal-800;
+  }
+}
 
 @layer components {
   /* .printTab {
@@ -15,6 +20,6 @@ body {
     @apply grid w-full grid-cols-1 items-center justify-center gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4;
   }
   .titleText {
-    @apply mb-4 text-center text-4xl text-teal-800;
+    @apply mb-4 text-center text-2xl text-teal-800 md:text-4xl;
   }
 }

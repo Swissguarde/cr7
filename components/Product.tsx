@@ -6,7 +6,7 @@ interface Props {
 
 const Product = ({ product }: Props) => {
   return (
-    <div className="border border-teal-700 p-3">
+    <div className="border border-teal-700 p-3 text-teal-900">
       <img
         className="flex h-72 w-full object-cover"
         src={urlFor(product.image[0]).url()}
