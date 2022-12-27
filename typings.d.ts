@@ -53,3 +53,10 @@ interface StripeProduct {
     unit_amount: number;
   };
 }
+
+interface NavLinks {
+  url: string;
+  label: string;
+  type?: "external";
+  icon?: IconType;
+}

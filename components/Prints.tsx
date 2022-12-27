@@ -22,12 +22,12 @@ const Prints = ({ categories, products }: Props) => {
 
   return (
     <AnimatePresence>
-      <Container className="mt-20">
+      <Container>
         <motion.div
           initial={{ y: -200, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.7, type: "spring", stiffness: 70 }}
-          className="mx-auto max-w-fit pt-10 pb-24 sm:px-4"
+          className="mx-auto max-w-fit pt-10 pb-2 sm:px-4"
         >
           <h2 className="titleText">ORIGINALS</h2>
           <div className="printTab">{showProducts(0)}</div>

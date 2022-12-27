@@ -22,4 +22,7 @@ body {
   .titleText {
     @apply mb-4 text-center text-2xl text-teal-800 md:text-4xl;
   }
+  .navLinks {
+    @apply flex items-center space-x-2 text-xs uppercase leading-7 text-gray-500;
+  }
 }

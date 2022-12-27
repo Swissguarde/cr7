@@ -1,9 +1,10 @@
 import type { GetServerSideProps } from "next";
 import Disclaimer from "../components/Disclaimer";
+import Footer from "../components/Footer";
 
 import Header from "../components/Header";
 import Hero from "../components/Hero";
-import Marquee from "../components/Marquee";
+import Marq from "../components/Marq";
 import Prints from "../components/Prints";
 import Seo from "../components/Seo";
 import { fetchCategories } from "../utils/fetchCatgories";
@@ -20,8 +21,9 @@ const Home = ({ categories, products }: Props) => {
       <Header categories={categories} products={products} />
       <Hero />
       <Prints categories={categories} products={products} />
-      <Marquee />
+      <Marq />
       <Disclaimer />
+      <Footer />
     </div>
   );
 };

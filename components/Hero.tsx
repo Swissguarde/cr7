@@ -31,6 +31,7 @@ const Hero = () => {
           </motion.p>
 
           <motion.h2
+            className="mt-8"
             initial={{ y: 135, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{
