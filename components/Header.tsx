@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { urlFor } from "../sanity";
 
 import { useState } from "react";
+import Cart from "./Cart";
 
 interface Props {
   categories: Category[];
@@ -15,8 +16,14 @@ interface Props {
 
 const Header = ({ categories, products }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const handleClick = () => {
     setIsOpen((prev) => !prev);
+    setIsCartOpen(false);
+  };
+  const handleCartClick = () => {
+    setIsCartOpen((prev) => !prev);
+    setIsOpen(false);
   };
   const firstThreeProducts = products.slice(0, 3);
 
@@ -53,7 +60,10 @@ const Header = ({ categories, products }: Props) => {
           >
             CR7
           </Link>
-          <button className="flex items-center justify-center">
+          <button
+            onClick={handleCartClick}
+            className="flex items-center justify-center"
+          >
             <AiOutlineShoppingCart className="mr-2" />
             CART
           </button>
@@ -103,6 +113,8 @@ const Header = ({ categories, products }: Props) => {
           </motion.nav>
         )}
       </AnimatePresence>
+
+      <AnimatePresence>{isCartOpen && <Cart />}</AnimatePresence>
     </>
   );
 };
