@@ -19,6 +19,11 @@ interface Image {
   };
 }
 
+interface Slug {
+  _type: "slug";
+  current: string;
+}
+
 interface Product {
   _id: string;
   _createdAt: string;
@@ -37,6 +42,33 @@ interface Product {
     _ref: string;
   };
   image: Image[];
+}
+
+interface ProductSlug {
+  _id: string;
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  _type: "product";
+  title: string;
+  price: number;
+  category: {
+    _type: "reference";
+    _ref: string;
+  };
+  description: Description[];
+  image: Image[];
+  slug: {
+    _type: "slug";
+    current: string;
+  };
+}
+
+interface Description {
+  _key: string;
+  _type: string;
+  children: [];
+  style: "normal";
 }
 
 interface StripeProduct {

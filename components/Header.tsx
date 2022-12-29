@@ -4,8 +4,10 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import Container from "./Container";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
 import { urlFor } from "../sanity";
+
+import { useState } from "react";
+
 interface Props {
   categories: Category[];
   products: Product[];
@@ -16,6 +18,7 @@ const Header = ({ categories, products }: Props) => {
   const handleClick = () => {
     setIsOpen((prev) => !prev);
   };
+  const firstThreeProducts = products.slice(0, 3);
 
   return (
     <>
@@ -23,7 +26,7 @@ const Header = ({ categories, products }: Props) => {
         initial={{ opacity: 0, scale: 0.3 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
-        className="fixed left-0 right-0 top-0 z-[60] flex h-12 border-b border-teal-500 border-opacity-40 bg-teal-100 bg-opacity-80 font-normal backdrop-blur-lg"
+        className="fixed left-0 right-0 top-0 z-[60] flex h-12 border-b border-teal-500 border-opacity-40 bg-teal-100 bg-opacity-95 font-normal"
       >
         <Container className="flex w-full items-center justify-between">
           <button
@@ -64,13 +67,13 @@ const Header = ({ categories, products }: Props) => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -50, opacity: 0 }}
             transition={{ ease: "easeInOut", duration: 0.4 }}
-            className="fixed z-50 w-full border-b border-teal-800 border-opacity-40 bg-teal-100 bg-opacity-95  py-10 font-normal"
+            className="fixed z-50 w-full border-b border-teal-800 border-opacity-40 py-10 font-normal backdrop-blur-md"
           >
             <Container className="py-6">
-              <div className="flex w-full grid-cols-2 items-center justify-between px-8">
+              <div className="relative flex w-full grid-cols-2 items-center justify-between px-8">
                 <div className="mt-6 flex flex-col space-y-3 text-gray-700">
                   <Link href="/test">COLLECTIONS</Link>
-                  {categories.map((category) => (
+                  {categories?.map((category) => (
                     <div key={category._id} className="text-xs uppercase">
                       {category.title}
                     </div>
@@ -78,20 +81,22 @@ const Header = ({ categories, products }: Props) => {
                 </div>
 
                 <div className="hidden space-x-4 sm:flex">
-                  {products
-                    .filter(
-                      (product) =>
-                        product.category._ref ===
-                        "925db197-d391-4a3d-9e05-6e44c54e274a"
-                    )
-                    .map((product) => (
-                      <img
-                        key={product._id}
-                        src={urlFor(product.image[0]).url()}
-                        alt=""
-                        className="h-64 w-52 border border-teal-600 object-cover p-3"
-                      />
-                    ))}
+                  {firstThreeProducts.map((product) => (
+                    <div className="border border-teal-600 object-cover p-3">
+                      <Link href={`/shop/${product.slug.current}`}>
+                        <img
+                          key={product._id}
+                          src={urlFor(product.image[0]).url()}
+                          alt=""
+                          className="mx-auto h-60 w-48 object-cover"
+                        />
+                        <div className="flex justify-between space-x-3">
+                          <div>{product.title}</div>
+                          <div className="text-green-500">${product.price}</div>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
                 </div>
               </div>
             </Container>

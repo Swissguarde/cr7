@@ -99,6 +99,27 @@ const Footer = () => {
             </Marquee>
           </div>
         </Container>
+        <div className="w-full py-6 opacity-70">
+          <Container>
+            <div className="flex w-full flex-wrap items-center justify-center gap-5 text-center text-[10px] uppercase text-gray-600 md:justify-between">
+              <span>&copy; CR7 | {new Date().getFullYear()}</span>
+              <span className="duration-300 hover:text-teal-500">
+                <span> Design & Dev: AYOMIDE.</span>
+                <span>
+                  This project is open source, you can checkout the repo{" "}
+                  <a
+                    className="text-teal-500"
+                    target={"_blank"}
+                    href="https://github.com/Swissguarde/cr7"
+                    rel="noreferrer"
+                  >
+                    here.
+                  </a>
+                </span>
+              </span>
+            </div>
+          </Container>
+        </div>
       </div>
     </footer>
   );

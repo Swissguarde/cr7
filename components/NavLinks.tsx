@@ -11,11 +11,11 @@ const NavLinks = ({ title, links, onCLick }: Props) => {
   return (
     <div>
       <h3 className="font-serif text-base uppercase tracking-wider">{title}</h3>
-      <ul className="flex flex-col gap-1 opacity-80">
-        {links.map(({ label, type, url, icon }) => {
+      <ul className="flex flex-col gap-1 justify-self-center opacity-80">
+        {links.map(({ label, type, url }) => {
           if (type === "external") {
             return (
-              <li key={label} className="flexl">
+              <li key={label} className="flex items-center space-x-2 leading-6">
                 <a
                   target="_blank"
                   className="text-xs uppercase duration-500 hover:text-teal-500"
@@ -25,7 +25,6 @@ const NavLinks = ({ title, links, onCLick }: Props) => {
                 >
                   {label}
                 </a>
-                {/* {React.createElement(icon, { size: "20" })} */}
               </li>
             );
           }
