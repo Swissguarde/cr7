@@ -35,4 +35,10 @@ body {
   .tabPanel {
     @apply grid w-full grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3;
   }
+  .productBtn {
+    @apply border border-teal-600 bg-teal-100/50 px-8 py-2.5 outline-none transition duration-300 hover:bg-teal-200;
+  }
+  .smallCartBtn {
+    @apply w-8 border border-teal-600 bg-teal-300;
+  }
 }

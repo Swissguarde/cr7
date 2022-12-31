@@ -45,6 +45,8 @@ interface Product {
 }
 
 interface ProductSlug {
+  quantity: number;
+  totalPrice: number;
   _id: string;
   _createdAt: string;
   _updatedAt: string;

@@ -5,18 +5,17 @@ import Container from "./Container";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { urlFor } from "../sanity";
-
-import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectAllProductsInCart } from "../redux/cartSlice";
+import { useEffect, useState } from "react";
 import Cart from "./Cart";
 
-interface Props {
-  categories: Category[];
-  products: Product[];
-}
-
-const Header = ({ categories, products }: Props) => {
+const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const items = useSelector(selectAllProductsInCart);
+
+  useEffect(() => {}, []);
   const handleClick = () => {
     setIsOpen((prev) => !prev);
     setIsCartOpen(false);
@@ -25,7 +24,6 @@ const Header = ({ categories, products }: Props) => {
     setIsCartOpen((prev) => !prev);
     setIsOpen(false);
   };
-  const firstThreeProducts = products.slice(0, 3);
 
   return (
     <>
@@ -64,8 +62,11 @@ const Header = ({ categories, products }: Props) => {
             onClick={handleCartClick}
             className="flex items-center justify-center"
           >
-            <AiOutlineShoppingCart className="mr-2" />
-            CART
+            <AiOutlineShoppingCart className="mr-1" />
+            {isCartOpen ? "CLOSE" : "CART"}
+            <span className="ml-1 flex h-5 w-8 items-center justify-center rounded-full bg-zinc-700 p-2 text-xs text-orange-50">
+              {items.length}
+            </span>
           </button>
         </Container>
       </motion.header>
@@ -82,31 +83,11 @@ const Header = ({ categories, products }: Props) => {
             <Container className="py-6">
               <div className="relative flex w-full grid-cols-2 items-center justify-between px-8">
                 <div className="mt-6 flex flex-col space-y-3 text-gray-700">
-                  <Link href="/test">COLLECTIONS</Link>
-                  {categories?.map((category) => (
-                    <div key={category._id} className="text-xs uppercase">
-                      {category.title}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="hidden space-x-4 sm:flex">
-                  {firstThreeProducts.map((product) => (
-                    <div className="border border-teal-600 object-cover p-3">
-                      <Link href={`/shop/${product.slug.current}`}>
-                        <img
-                          key={product._id}
-                          src={urlFor(product.image[0]).url()}
-                          alt=""
-                          className="mx-auto h-60 w-48 object-cover"
-                        />
-                        <div className="flex justify-between space-x-3">
-                          <div>{product.title}</div>
-                          <div className="text-green-500">${product.price}</div>
-                        </div>
-                      </Link>
-                    </div>
-                  ))}
+                  <h2>COLLECTIONS</h2>
+                  <div>originals</div>
+                  <div>limitted editions</div>
+                  <div>featured</div>
+                  <div>latest prints</div>
                 </div>
               </div>
             </Container>

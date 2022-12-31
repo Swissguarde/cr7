@@ -38,6 +38,11 @@ export default {
       type: 'number',
     },
     {
+      name: 'quantity',
+      title: 'Quantity',
+      type: 'number',
+    },
+    {
       name: 'description',
       title: 'Description',
       type: 'blockContent',
