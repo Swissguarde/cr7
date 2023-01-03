@@ -41,4 +41,7 @@ body {
   .smallCartBtn {
     @apply w-8 border border-teal-600 bg-teal-300;
   }
+  .cartBtn {
+    @apply bg-teal-800 p-2 text-white;
+  }
 }

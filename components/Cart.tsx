@@ -1,35 +1,68 @@
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Stripe } from "stripe";
 import {
   selectAllProductsInCart,
   clearCart,
   removeFromCart,
   toggleCartQty,
   getCartTotal,
-  selectCartState,
 } from "../redux/cartSlice";
 import { RootState } from "../redux/store";
 import { urlFor } from "../sanity";
+import { fetchPostJSON } from "../utils/api-Helpers";
+import getStripe from "../utils/get-stripejs";
+
 const Cart = () => {
+  const [loading, setLoading] = useState(false);
   const items = useSelector(selectAllProductsInCart);
   const router = useRouter();
   const dispatch = useDispatch();
-  const pushToShop = () => {
-    router.push("/shop");
+
+  const pushTo = (route: string) => {
+    router.push(route);
   };
-  // const totalAmount = useSelector(selectAllCartAmount);
-  const {
-    items: cartProducts,
-    totalItems,
-    totalAmount,
-  } = useSelector((state: RootState) => state.cart);
+  const { totalItems, totalAmount } = useSelector(
+    (state: RootState) => state.cart
+  );
+
   useEffect(() => {
     dispatch(getCartTotal());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useSelector((state: RootState) => state.cart)]);
+
+  const createCheckoutSession = async () => {
+    setLoading(true);
+
+    const checkoutSession: Stripe.Checkout.Session = await fetchPostJSON(
+      "/api/checkout_sessions",
+      { items: items }
+    );
+
+    // Internal Server Error
+    if ((checkoutSession as any).statusCode === 500) {
+      console.error((checkoutSession as any).message);
+      return;
+    }
+
+    // Redirect to checkout
+    const stripe = await getStripe();
+    const { error } = await stripe!.redirectToCheckout({
+      // Make the id field from the Checkout Session creation API response
+      // available to this file, so you can provide it as parameter here
+      // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+      sessionId: checkoutSession.id,
+    });
+
+    // If `redirectToCheckout` fails due to a browser or network
+    // error, display the localized error message to your customer
+    // using `error.message`.
+    console.warn(error.message);
+
+    setLoading(false);
+  };
   return (
     <>
       <motion.section
@@ -37,7 +70,7 @@ const Cart = () => {
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: "100%", opacity: 0 }}
         transition={{ ease: "easeInOut", duration: 0.5 }}
-        className="fixed right-0 z-50 mt-12 h-full w-full border-x border-teal-500 border-opacity-40 bg-opacity-95 p-6 font-normal backdrop-blur-lg sm:w-[45%]"
+        className="fixed right-0 z-50 mt-12 mb-40 h-full w-full overflow-scroll border-x border-teal-500 border-opacity-40 bg-opacity-95 p-6 font-normal backdrop-blur-3xl sm:w-[45%]"
       >
         {items.length === 0 ? (
           <div className="flex h-full w-full flex-col items-center justify-center">
@@ -45,7 +78,7 @@ const Cart = () => {
               your cart is empty
             </div>
             <button
-              onClick={pushToShop}
+              onClick={() => pushTo("/shop")}
               className="my-2.5 bg-teal-800 p-2 text-white"
             >
               CONTINUE SHOPPING
@@ -53,7 +86,9 @@ const Cart = () => {
           </div>
         ) : (
           <div className="relative h-full">
-            <div className="text-center font-mono text-xl">CART SUMMARY</div>
+            <div className="text-center font-mono text-xl text-teal-800">
+              CART SUMMARY
+            </div>
             <div className="mt-6 grid w-full grid-cols-1 gap-3">
               {items.map((product) => (
                 <div
@@ -69,9 +104,14 @@ const Cart = () => {
 
                     <div className="font-mono uppercase text-teal-800">
                       <h2>{product.title}</h2>
-                      <h2 className="mt-1 text-xs">PRICE: ${product.price}</h2>
+                      <h2 className="mt-1 text-xs">
+                        PRICE: ${product.price} ({product.quantity})
+                      </h2>
                       <h2 className="my-1 text-xs">
-                        SUB TOTAL: ${product.price * product.quantity}
+                        SUB TOTAL:{" "}
+                        <span className="font-bold">
+                          ${product.price * product.quantity}
+                        </span>
                       </h2>
                       <div className="flex flex-1">
                         <button
@@ -109,11 +149,14 @@ const Cart = () => {
                 </div>
               ))}
             </div>
-            <div className="absolute bottom-12 w-full">
-              <div>TOTAL ITEM(S): {totalItems}</div>
-              <div className="my-4">
-                SUBTOTAL TOTAL:{" "}
-                <span className="text-green-500">${totalAmount}</span>
+            <div className="my-20 w-full">
+              <div className="my-4 flex justify-between border-y border-teal-800 p-2">
+                <div>SUBTOTAL TOTAL: {totalItems} ITEM(S)</div>
+                <div>
+                  <span className="text-green-500">
+                    ${totalAmount.toFixed(2)}
+                  </span>
+                </div>
               </div>
               <button
                 onClick={() => dispatch(clearCart())}
@@ -121,6 +164,21 @@ const Cart = () => {
               >
                 CLEAR CART
               </button>
+              <div className="my-4 flex space-x-2 pb-40">
+                <button
+                  onClick={() => pushTo("/shop")}
+                  className="w-full flex-1 bg-teal-400 p-2 text-white"
+                >
+                  CONTINUE SHOPPING
+                </button>
+
+                <button
+                  onClick={createCheckoutSession}
+                  className="cartBtn w-full flex-1"
+                >
+                  CHECKOUT
+                </button>
+              </div>
             </div>
           </div>
         )}

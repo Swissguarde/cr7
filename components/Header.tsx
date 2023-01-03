@@ -4,25 +4,27 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import Container from "./Container";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { urlFor } from "../sanity";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectAllProductsInCart } from "../redux/cartSlice";
-import { useEffect, useState } from "react";
+import {
+  selectModalState,
+  toggleModal,
+  toggleCart,
+  selectCartState,
+} from "../redux/modalSlice";
 import Cart from "./Cart";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const items = useSelector(selectAllProductsInCart);
+  const dispatch = useDispatch();
 
-  useEffect(() => {}, []);
+  const items = useSelector(selectAllProductsInCart);
+  const isOpen = useSelector(selectModalState);
+  const isCartOpen = useSelector(selectCartState);
   const handleClick = () => {
-    setIsOpen((prev) => !prev);
-    setIsCartOpen(false);
+    dispatch(toggleModal());
   };
   const handleCartClick = () => {
-    setIsCartOpen((prev) => !prev);
-    setIsOpen(false);
+    dispatch(toggleCart());
   };
 
   return (
@@ -82,12 +84,12 @@ const Header = () => {
           >
             <Container className="py-6">
               <div className="relative flex w-full grid-cols-2 items-center justify-between px-8">
-                <div className="mt-6 flex flex-col space-y-3 text-gray-700">
-                  <h2>COLLECTIONS</h2>
-                  <div>originals</div>
-                  <div>limitted editions</div>
-                  <div>featured</div>
-                  <div>latest prints</div>
+                <div className="mt-6 flex flex-col space-y-3 text-sm uppercase text-teal-700">
+                  <h2 className="text-xl">COLLECTIONS</h2>
+                  <Link href="/shop">Originals</Link>
+                  <Link href="/shop">Feeatured</Link>
+                  <Link href="/shop">Limited Editions</Link>
+                  <Link href="/shop">Latest Prints</Link>
                 </div>
               </div>
             </Container>

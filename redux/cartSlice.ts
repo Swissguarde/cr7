@@ -1,28 +1,35 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
+
+const isServer = typeof window === "undefined";
 
 export interface CartState {
   items: ProductSlug[];
   totalItems: number;
   totalAmount: number;
 }
-// const fetchFromLocalStorage = () => {
-//     let cart = localStorage.getItem("cart");
-//     if (cart) {
-//       return JSON.parse(localStorage.getItem("cart") || "");
-//     } else {
-//       return [];
-//     }
-//   }
+const fetchFromLocalStorage = () => {
+  if (!isServer) {
+    let cart = localStorage.getItem("cart");
+    if (cart) {
+      return JSON.parse(localStorage.getItem("cart") || "{}");
+    } else {
+      return [];
+    }
+  } else {
+    return [];
+  }
+};
 
-// const storeInLocalStorage = (data: ProductSlug[]) => {
-//   localStorage.setItem("cart", JSON.stringify(data));
-// };
+const storeInLocalStorage = (items: ProductSlug[]) => {
+  if (!isServer) {
+    localStorage.setItem("cart", JSON.stringify(items));
+  }
+};
 
 const initialState: CartState = {
-  // items: fetchFromLocalStorage(),
-  items: [],
+  items: fetchFromLocalStorage(),
   totalItems: 0,
   totalAmount: 0,
 };
@@ -50,10 +57,10 @@ export const cartSlice = createSlice({
           }
         });
         state.items = tempCart;
-        // storeInLocalStorage(state.items);
+        storeInLocalStorage(state.items);
       } else {
         state.items.push(action.payload);
-        // storeInLocalStorage(state.items);
+        storeInLocalStorage(state.items);
       }
     },
     removeFromCart: (state: CartState, action: PayloadAction<string>) => {
@@ -61,11 +68,11 @@ export const cartSlice = createSlice({
         (item) => item._id !== action.payload
       );
       state.items = tempCart;
-      // storeInLocalStorage(state.items);
+      storeInLocalStorage(state.items);
     },
     clearCart: (state: CartState) => {
       state.items = [];
-      // storeInLocalStorage(state.items);
+      storeInLocalStorage(state.items);
     },
     getCartTotal: (state: CartState) => {
       state.totalAmount = state.items.reduce((cartTotal, cartItem) => {
@@ -108,6 +115,9 @@ export const {
   clearCart,
   toggleCartQty,
 } = cartSlice.actions;
+
+export const store = configureStore({ reducer: cartSlice.reducer });
+
 export const selectAllProductsInCart = (state: RootState) => state.cart.items;
 
 export const selectAllCartAmount = (state: RootState) => state.cart.totalAmount;

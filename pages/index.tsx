@@ -14,16 +14,19 @@ interface Props {
   categories: Category[];
   products: Product[];
 }
+
 const Home = ({ categories, products }: Props) => {
   return (
     <div>
       <Seo title="Home - CR7" />
       <Header />
-      <Hero />
-      <Prints categories={categories} products={products} />
-      <Marq />
-      <Disclaimer />
-      <Footer />
+      <main>
+        <Hero />
+        <Prints categories={categories} products={products} />
+        <Marq />
+        <Disclaimer />
+        <Footer />
+      </main>
     </div>
   );
 };

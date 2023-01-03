@@ -1,7 +1,24 @@
 import Container from "./Container";
 import Marquee from "react-fast-marquee";
-
+import { toast } from "react-hot-toast";
 const Marq = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email");
+    console.log("EMAIL", email);
+    e.currentTarget.reset();
+
+    setTimeout(() => {
+      toast.success("This is a dummy form. No email would be sent!", {
+        position: "bottom-center",
+        style: {
+          background: "#115E59",
+          color: "#FFF",
+        },
+      });
+    }, 1000);
+  };
   const reviews = [
     {
       id: 1,
@@ -45,14 +62,17 @@ const Marq = () => {
             JOIN OUR MAILING LIST FOR DISCOUNTS AND LATEST WORKS
           </div>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="relative mx-auto mt-6 flex w-full sm:max-w-md">
               <input
                 type="email"
                 placeholder="Your Email"
                 className="w-full border border-teal-700 p-2.5 outline-none"
               />
-              <button className="h-[51px] w-fit bg-teal-700 p-2 text-center text-white">
+              <button
+                type="submit"
+                className="h-[51px] w-fit bg-teal-700 p-2 text-center text-white"
+              >
                 Subscribe
               </button>
             </div>

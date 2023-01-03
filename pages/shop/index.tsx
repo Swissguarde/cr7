@@ -22,12 +22,14 @@ const Shop = ({ categories, products }: Props) => {
       .map((product) => <Product product={product} key={product._id} />);
   };
   return (
-    <div className="text-teal-800">
+    <div className=" text-teal-800">
       <Seo title="SHOP - CR7" />
       <Header />
       <div className="mx-auto w-full max-w-screen-2xl px-4 sm:px-10 lg:px-20">
         <div className="pt-20">
-          <div className="text-center font-mono text-4xl">SHOP</div>
+          <div className="text-center font-serif text-4xl text-teal-800 md:text-6xl">
+            SHOP
+          </div>
 
           <div className="mt-12">
             <Tab.Group>

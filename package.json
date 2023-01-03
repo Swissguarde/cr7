@@ -10,6 +10,8 @@
     "@portabletext/react": "^2.0.0",
     "@reduxjs/toolkit": "^1.9.1",
     "@sanity/image-url": "^1.0.1",
+    "@stripe/stripe-js": "^1.46.0",
+    "canvas-confetti": "^1.6.0",
     "framer-motion": "^8.0.2",
     "next": "latest",
     "next-sanity": "^3.1.8",
@@ -19,9 +21,11 @@
     "react-flip-move": "^3.0.5",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.7.1",
-    "react-redux": "^8.0.5"
+    "react-redux": "^8.0.5",
+    "stripe": "^11.5.0"
   },
   "devDependencies": {
+    "@types/canvas-confetti": "^1.6.0",
     "@types/node": "18.11.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
