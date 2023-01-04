@@ -13,6 +13,7 @@ import {
   selectModalState,
 } from "../redux/modalSlice";
 import Cart from "./Cart";
+import Image from "next/image";
 
 const Header = () => {
   const isOpen = useSelector(selectModalState);
@@ -101,10 +102,12 @@ const Header = () => {
                   </Link>
                 </div>
                 <div>
-                  <img
+                  <Image
                     src="/hero.jpg"
-                    className="h-40 w-40 rounded-full object-cover"
-                    alt=""
+                    className="rounded-full object-cover"
+                    width={160}
+                    height={160}
+                    alt="hero"
                   />
                 </div>
               </div>

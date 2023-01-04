@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,7 @@ import { fetchPostJSON } from "../utils/api-Helpers";
 import getStripe from "../utils/get-stripejs";
 import { toggleCart } from "../redux/modalSlice";
 import FlipMove from "react-flip-move";
+import Image from "next/image";
 
 const Cart = () => {
   const [loading, setLoading] = useState(false);
@@ -102,10 +103,13 @@ const Cart = () => {
                     className="flex items-center justify-between space-x-6 p-4 shadow-lg"
                   >
                     <div className="flex items-center space-x-7">
-                      <img
+                      <Image
                         src={urlFor(product.image[0]).url()}
+                        alt={product.title}
+                        width={112}
+                        height={112}
+                        objectFit="cover"
                         className="h-28 w-28 object-cover"
-                        alt=""
                       />
 
                       <div className="font-mono uppercase text-teal-800">

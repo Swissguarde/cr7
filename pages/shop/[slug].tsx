@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import { addToCart } from "../../redux/cartSlice";
 import { selectCartOpenState } from "../../redux/modalSlice";
+import Image from "next/image";
 interface Props {
   product: ProductSlug;
 }
@@ -70,12 +71,15 @@ const ProductDetails = ({ product }: Props) => {
         <div className="w-full max-w-screen-2xl px-4 pt-16 pb-12 sm:px-10 lg:px-32">
           <div className="grid grid-cols-1 items-center justify-center gap-4 md:grid-cols-2">
             <div>
-              {/* <img
-              className="flex h-[350px] w-[420px] border border-teal-300 object-cover p-8 md:h-[450px]"
-              src={urlFor(image[0]).url()}
-              alt={title}
-            /> */}
-              <img
+              <motion.img
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{
+                  duration: 1.3,
+                  delay: 0.5,
+                  type: "spring",
+                  stiffness: 50,
+                }}
                 src={urlFor(image[index]).url()}
                 className="flex h-[350px] w-[420px] border border-teal-300 object-cover p-4 md:h-[450px] md:p-8"
                 alt={title}
@@ -83,8 +87,10 @@ const ProductDetails = ({ product }: Props) => {
 
               <div className="my-2.5 flex items-center space-x-4">
                 {image?.map((item, i) => (
-                  <img
+                  <Image
                     key={i}
+                    width={112}
+                    height={112}
                     src={urlFor(item).url()}
                     className={`${
                       i === index && "border border-teal-800"
