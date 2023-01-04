@@ -101,10 +101,22 @@ const Footer = () => {
         </Container>
         <div className="w-full py-6 opacity-70">
           <Container>
-            <div className="flex w-full flex-wrap items-center justify-center gap-5 text-center text-[10px] uppercase text-gray-600 md:justify-between">
+            <div className="flex w-full flex-wrap items-center justify-center gap-5 text-center text-[12px] uppercase text-gray-600 md:justify-between">
               <span>&copy; CR7 | {new Date().getFullYear()}</span>
               <span className="duration-300 hover:text-teal-500">
-                <span> Design & Dev: AYOMIDE.</span>
+                <span>
+                  {" "}
+                  Design & Dev:{" "}
+                  <a
+                    className="text-teal-500"
+                    target={"_blank"}
+                    href="https://twitter.com/swiss_45"
+                    rel="noreferrer"
+                  >
+                    AYOMIDE
+                  </a>
+                  .
+                </span>
                 <span>
                   This project is open source, you can checkout the repo{" "}
                   <a

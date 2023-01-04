@@ -4,22 +4,23 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import Container from "./Container";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectAllProductsInCart } from "../redux/cartSlice";
 import {
-  selectModalState,
-  toggleModal,
   toggleCart,
-  selectCartState,
+  toggleModal,
+  selectCartOpenState,
+  selectModalState,
 } from "../redux/modalSlice";
 import Cart from "./Cart";
 
 const Header = () => {
+  const isOpen = useSelector(selectModalState);
+  const isCartOpen = useSelector(selectCartOpenState);
+  const items = useSelector(selectAllProductsInCart);
+
   const dispatch = useDispatch();
 
-  const items = useSelector(selectAllProductsInCart);
-  const isOpen = useSelector(selectModalState);
-  const isCartOpen = useSelector(selectCartState);
   const handleClick = () => {
     dispatch(toggleModal());
   };
@@ -33,7 +34,7 @@ const Header = () => {
         initial={{ opacity: 0, scale: 0.3 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
-        className="fixed left-0 right-0 top-0 z-[60] flex h-12 border-b border-teal-500 border-opacity-40 bg-teal-100 bg-opacity-95 font-normal"
+        className="menu fixed left-0 right-0 top-0 z-[60] flex h-12 border-b border-teal-500 border-opacity-40 bg-teal-100 bg-opacity-95 font-normal"
       >
         <Container className="flex w-full items-center justify-between">
           <button
@@ -80,16 +81,31 @@ const Header = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -50, opacity: 0 }}
             transition={{ ease: "easeInOut", duration: 0.4 }}
-            className="fixed z-50 w-full border-b border-teal-800 border-opacity-40 py-10 font-normal backdrop-blur-md"
+            className="menu fixed z-50 w-full border-b border-teal-800 border-opacity-40 py-10 font-normal backdrop-blur-md"
           >
             <Container className="py-6">
               <div className="relative flex w-full grid-cols-2 items-center justify-between px-8">
                 <div className="mt-6 flex flex-col space-y-3 text-sm uppercase text-teal-700">
                   <h2 className="text-xl">COLLECTIONS</h2>
-                  <Link href="/shop">Originals</Link>
-                  <Link href="/shop">Feeatured</Link>
-                  <Link href="/shop">Limited Editions</Link>
-                  <Link href="/shop">Latest Prints</Link>
+                  <Link onClick={handleClick} href="/shop">
+                    Originals
+                  </Link>
+                  <Link onClick={handleClick} href="/shop">
+                    Feeatured
+                  </Link>
+                  <Link onClick={handleClick} href="/shop">
+                    Limited Editions
+                  </Link>
+                  <Link onClick={handleClick} href="/shop">
+                    Latest Prints
+                  </Link>
+                </div>
+                <div>
+                  <img
+                    src="/hero.jpg"
+                    className="h-40 w-40 rounded-full object-cover"
+                    alt=""
+                  />
                 </div>
               </div>
             </Container>

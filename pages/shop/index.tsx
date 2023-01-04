@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import { motion } from "framer-motion";
 import Container from "../../components/Container";
 import FlipMove from "react-flip-move";
 import Header from "../../components/Header";
@@ -9,6 +10,8 @@ import { Tab } from "@headlessui/react";
 import Product from "../../components/Product";
 import Marq from "../../components/Marq";
 import Footer from "../../components/Footer";
+import { selectCartOpenState } from "../../redux/modalSlice";
+import { useSelector } from "react-redux";
 
 interface Props {
   categories: Category[];
@@ -21,15 +24,27 @@ const Shop = ({ categories, products }: Props) => {
       .filter((product) => product.category._ref === categories[category]._id)
       .map((product) => <Product product={product} key={product._id} />);
   };
+  const isCartOpen = useSelector(selectCartOpenState);
+
   return (
-    <div className=" text-teal-800">
+    <div className={`${isCartOpen && "blurs"} text-teal-800`}>
       <Seo title="SHOP - CR7" />
       <Header />
       <div className="mx-auto w-full max-w-screen-2xl px-4 sm:px-10 lg:px-20">
         <div className="pt-20">
-          <div className="text-center font-serif text-4xl text-teal-800 md:text-6xl">
+          <motion.div
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              duration: 1.3,
+              delay: 0.5,
+              type: "spring",
+              stiffness: 50,
+            }}
+            className="text-center text-4xl md:text-6xl"
+          >
             SHOP
-          </div>
+          </motion.div>
 
           <div className="mt-12">
             <Tab.Group>

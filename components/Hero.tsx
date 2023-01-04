@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 const Hero = () => {
   return (
     <AnimatePresence>
-      <Container className="flex min-h-[50vh] w-full items-center justify-center overflow-hidden pb-20 text-center">
+      <Container className="flex min-h-[50vh] w-full items-center justify-center pb-20 text-center">
         <motion.div
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

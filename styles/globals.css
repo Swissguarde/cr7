@@ -6,6 +6,10 @@
 body {
   font-family: "Chivo Mono", monospace;
 }
+.blurs > *:not(.menu) {
+  filter: blur(20px);
+  transition: 0.8s ease;
+}
 @layer base {
   body {
     @apply !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-teal-800;

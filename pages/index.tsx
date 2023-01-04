@@ -1,12 +1,13 @@
 import type { GetServerSideProps } from "next";
+import { useSelector } from "react-redux";
 import Disclaimer from "../components/Disclaimer";
 import Footer from "../components/Footer";
-
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Marq from "../components/Marq";
 import Prints from "../components/Prints";
 import Seo from "../components/Seo";
+import { selectCartOpenState, selectModalState } from "../redux/modalSlice";
 import { fetchCategories } from "../utils/fetchCatgories";
 import { fetchProducts } from "../utils/fetchProducts";
 
@@ -16,11 +17,13 @@ interface Props {
 }
 
 const Home = ({ categories, products }: Props) => {
+  const isOpen = useSelector(selectModalState);
+  const isCartOpen = useSelector(selectCartOpenState);
   return (
     <div>
       <Seo title="Home - CR7" />
       <Header />
-      <main>
+      <main className={`${isOpen || (isCartOpen && "blurs")}`}>
         <Hero />
         <Prints categories={categories} products={products} />
         <Marq />

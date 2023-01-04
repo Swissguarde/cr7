@@ -1,7 +1,6 @@
 import Container from "./Container";
 import Product from "./Product";
 import Link from "next/link";
-import Featured from "./Featured";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface Props {
@@ -37,11 +36,6 @@ const Prints = ({ categories, products }: Props) => {
           >
             SHOP ALL
           </Link>
-          {/* <div className="my-10">
-          <Featured
-            product={products[Math.floor(Math.random() * products.length)]}
-          />
-        </div> */}
           <h2 className="titleText">LIMITED EDITIONS</h2>
           <div className="printTab">{showProducts(1)}</div>
           <Link

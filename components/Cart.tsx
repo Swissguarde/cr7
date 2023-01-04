@@ -14,6 +14,8 @@ import { RootState } from "../redux/store";
 import { urlFor } from "../sanity";
 import { fetchPostJSON } from "../utils/api-Helpers";
 import getStripe from "../utils/get-stripejs";
+import { toggleCart } from "../redux/modalSlice";
+import FlipMove from "react-flip-move";
 
 const Cart = () => {
   const [loading, setLoading] = useState(false);
@@ -70,7 +72,7 @@ const Cart = () => {
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: "100%", opacity: 0 }}
         transition={{ ease: "easeInOut", duration: 0.5 }}
-        className="fixed right-0 z-50 mt-12 mb-40 h-full w-full overflow-scroll border-x border-teal-500 border-opacity-40 bg-opacity-95 p-6 font-normal backdrop-blur-3xl sm:w-[45%]"
+        className="menu fixed right-0 z-50 mt-12 mb-40 h-full w-full overflow-scroll border-x border-teal-500 border-opacity-40 bg-opacity-95 p-6 font-normal backdrop-blur-3xl sm:w-[45%]"
       >
         {items.length === 0 ? (
           <div className="flex h-full w-full flex-col items-center justify-center">
@@ -78,7 +80,10 @@ const Cart = () => {
               your cart is empty
             </div>
             <button
-              onClick={() => pushTo("/shop")}
+              onClick={() => {
+                pushTo("/shop");
+                dispatch(toggleCart());
+              }}
               className="my-2.5 bg-teal-800 p-2 text-white"
             >
               CONTINUE SHOPPING
@@ -90,64 +95,66 @@ const Cart = () => {
               CART SUMMARY
             </div>
             <div className="mt-6 grid w-full grid-cols-1 gap-3">
-              {items.map((product) => (
-                <div
-                  key={product._id}
-                  className="flex items-center justify-between space-x-6 p-4 shadow-lg"
-                >
-                  <div className="flex items-center space-x-7">
-                    <img
-                      src={urlFor(product.image[0]).url()}
-                      className="h-28 w-28 object-cover"
-                      alt=""
-                    />
+              <FlipMove>
+                {items.map((product) => (
+                  <div
+                    key={product._id}
+                    className="flex items-center justify-between space-x-6 p-4 shadow-lg"
+                  >
+                    <div className="flex items-center space-x-7">
+                      <img
+                        src={urlFor(product.image[0]).url()}
+                        className="h-28 w-28 object-cover"
+                        alt=""
+                      />
 
-                    <div className="font-mono uppercase text-teal-800">
-                      <h2>{product.title}</h2>
-                      <h2 className="mt-1 text-xs">
-                        PRICE: ${product.price} ({product.quantity})
-                      </h2>
-                      <h2 className="my-1 text-xs">
-                        SUB TOTAL:{" "}
-                        <span className="font-bold">
-                          ${product.price * product.quantity}
-                        </span>
-                      </h2>
-                      <div className="flex flex-1">
-                        <button
-                          onClick={() =>
-                            dispatch(
-                              toggleCartQty({ _id: product._id, type: "DEC" })
-                            )
-                          }
-                          className="smallCartBtn"
-                        >
-                          -
-                        </button>
-                        <div className="w-8 border-y border-teal-600 bg-teal-200 text-center">
-                          {product.quantity}
+                      <div className="font-mono uppercase text-teal-800">
+                        <h2>{product.title}</h2>
+                        <h2 className="mt-1 text-xs">
+                          PRICE: ${product.price} ({product.quantity})
+                        </h2>
+                        <h2 className="my-1 text-xs">
+                          SUB TOTAL:{" "}
+                          <span className="font-bold">
+                            ${product.price * product.quantity}
+                          </span>
+                        </h2>
+                        <div className="flex flex-1">
+                          <button
+                            onClick={() =>
+                              dispatch(
+                                toggleCartQty({ _id: product._id, type: "DEC" })
+                              )
+                            }
+                            className="smallCartBtn"
+                          >
+                            -
+                          </button>
+                          <div className="w-8 border-y border-teal-600 bg-teal-200 text-center">
+                            {product.quantity}
+                          </div>
+                          <button
+                            onClick={() =>
+                              dispatch(
+                                toggleCartQty({ _id: product._id, type: "INC" })
+                              )
+                            }
+                            className="smallCartBtn"
+                          >
+                            +
+                          </button>
                         </div>
-                        <button
-                          onClick={() =>
-                            dispatch(
-                              toggleCartQty({ _id: product._id, type: "INC" })
-                            )
-                          }
-                          className="smallCartBtn"
-                        >
-                          +
-                        </button>
                       </div>
                     </div>
+                    <div
+                      onClick={() => dispatch(removeFromCart(product._id))}
+                      className="cursor-pointer text-xs text-red-600 underline md:text-base"
+                    >
+                      REMOVE
+                    </div>
                   </div>
-                  <div
-                    onClick={() => dispatch(removeFromCart(product._id))}
-                    className="cursor-pointer text-xs text-red-600 underline md:text-base"
-                  >
-                    REMOVE
-                  </div>
-                </div>
-              ))}
+                ))}
+              </FlipMove>
             </div>
             <div className="my-20 w-full">
               <div className="my-4 flex justify-between border-y border-teal-800 p-2">
