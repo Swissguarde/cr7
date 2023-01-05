@@ -27,7 +27,7 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 - [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
 
 
-```
+
 
 
 ## Contributing
@@ -43,3 +43,6 @@ Please make sure to update tests as appropriate.
 
 
 
+![Home-CR7 (1)](https://user-images.githubusercontent.com/88935495/210755323-6f0ae046-cbd6-43d6-bb4a-c37f12e1304e.png)
+![SHOP-CR7](https://user-images.githubusercontent.com/88935495/210755329-413d6b99-9083-4a51-bebd-c59576209147.png)
+![The-Birth-CR7](https://user-images.githubusercontent.com/88935495/210755343-067b3a0b-ce14-4539-afd7-e3a09f91b215.png)
