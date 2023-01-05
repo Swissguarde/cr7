@@ -103,7 +103,17 @@ const ProductDetails = ({ product }: Props) => {
             </div>
             <div>
               <div className="max-w-md">
-                <div className="mb-6 flex items-center justify-between">
+                <motion.div
+                  initial={{ y: -130, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{
+                    duration: 1.3,
+                    delay: 0.5,
+                    type: "spring",
+                    stiffness: 55,
+                  }}
+                  className="mb-6 flex items-center justify-between"
+                >
                   {" "}
                   <div className="font-mono text-2xl font-bold uppercase text-teal-800 sm:text-4xl">
                     {title}
@@ -111,7 +121,7 @@ const ProductDetails = ({ product }: Props) => {
                   <div className="text-2xl text-green-600 sm:text-2xl">
                     ${price}
                   </div>
-                </div>
+                </motion.div>
 
                 <div className="mb-4">
                   <div className="hidden sm:flex">
