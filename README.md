@@ -38,10 +38,7 @@ to discuss what you would like to change.
 Please make sure to update tests as appropriate.
 
 ## Images
-![The-Birth-CR7](https://user-images.githubusercontent.com/88935495/210754611-5239f7a6-0e83-4f91-84a9-fd3c4e6a72a2.png)
-![SHOP-CR7](https://user-images.githubusercontent.com/88935495/210754676-00f79c16-db35-4c73-84f1-84a860de23a0.png)
-![Home-CR7 (1)](https://user-images.githubusercontent.com/88935495/210754702-5b8f154b-740b-4cad-8200-26734548da7c.png)
-![Home-CR7](https://user-images.githubusercontent.com/88935495/210754722-8ab36543-db14-4400-8ce6-e766a5f87fce.png)
+![Home-CR7](https://user-images.githubusercontent.com/88935495/210754953-ff88827b-5402-4d82-b474-51907cab62e4.png)
 
 
 
