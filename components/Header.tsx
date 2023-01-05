@@ -92,7 +92,7 @@ const Header = () => {
                     Originals
                   </Link>
                   <Link onClick={handleClick} href="/shop">
-                    Feeatured
+                    Featured
                   </Link>
                   <Link onClick={handleClick} href="/shop">
                     Limited Editions
@@ -101,7 +101,7 @@ const Header = () => {
                     Latest Prints
                   </Link>
                 </div>
-                <div>
+                <div className="hidden md:block">
                   <Image
                     src="/hero.jpg"
                     className="rounded-full object-cover"
